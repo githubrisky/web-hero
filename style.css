@@ -1,0 +1,72 @@
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.navbar .nav-link {
+  color: #007bff;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff;
+}
+
+.navbar{
+  display: justify-content-center;
+}
+
+/* Home Section */
+#home {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full screen */
+  background: url('https://img.freepik.com/free-vector/space-illustration-night-alien-fantasy-landscape_33099-1873.jpg?t=st=1731858450~exp=1731862050~hmac=b241e62badec5547a2bd6a1b93138c19e8e2f63609aaa01dcb04068db26e781d&w=1380') no-repeat center center/cover;
+  overflow: hidden;
+}
+
+.home-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white; /* Kontras dengan background */
+}
+
+.home-content h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.home-content p {
+  font-size: 1.2rem;
+}
+
+.home-content .btn-custom {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.home-content .btn-custom:hover {
+  outline: 2px solid white;
+  border-color: white; 
+}
+
+
+.about-section {
+  height: 100vh; /* Tinggi penuh 1 layar */
+  display: flex; /* Menggunakan flexbox untuk tata letak vertikal */
+  flex-direction: column; /* Mengatur arah konten */
+  justify-content: center; /* Pusatkan secara vertikal */
+  align-items: center; /* Pusatkan secara horizontal */
+  background-color: #f8f9fa; /* Warna latar belakang */
+  padding: 20px; /* Tambahkan padding untuk jarak */
+  text-align: center; /* Konten rata tengah */
+}
+
