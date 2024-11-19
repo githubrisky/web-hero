@@ -1,42 +1,43 @@
 <?php
-include 'connect_db.php';
-$message = "";
+// Koneksi database
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "db_web1";
 
+$conn = new mysqli($host, $user, $pass, $dbname);
+
+// Cek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Proses login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+    $username = $conn->real_escape_string($_POST['username']);
     $password = $_POST['password'];
 
-    $sql = "SELECT password FROM users WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $stmt->store_result();
+    // Query untuk mendapatkan data user
+    $sql = "SELECT * FROM users WHERE username = '$username'";
+    $result = $conn->query($sql);
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password);
-        $stmt->fetch();
-        if (password_verify($password, $hashed_password)) {
-            $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                            <strong>Login berhasil!</strong> Selamat datang kembali.
-                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                        </div>";
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Verifikasi password
+        if (password_verify($password, $row['password'])) {
+            header("Location: index.php"); // Redirect ke halaman index.php
+            exit();
         } else {
-            $message = "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                            <strong>Login gagal!</strong> Password salah.
-                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                        </div>";
+            echo "Password salah!";
         }
     } else {
-        $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                        <strong>Login gagal!</strong> ID tidak ditemukan.
-                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                    </div>";
+        echo "Username tidak ditemukan!";
     }
-
-    $stmt->close();
-    $conn->close();
 }
+
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
